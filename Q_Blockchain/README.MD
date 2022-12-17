@@ -61,6 +61,8 @@ nano .env
 
 Add Address without `0x` and your Public IP and save settings `CTRL+X` `y` and `ENTER`
  
+ Add IP `Your IP`
+ 
 Change to `QCLIENT_IMAGE=qblockchain/q-client:1.2.2`
 
 Example : 
