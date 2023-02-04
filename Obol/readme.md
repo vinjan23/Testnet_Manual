@@ -1,7 +1,8 @@
 ## Update
 ```
-sudo apt update && \
-sudo apt upgrade
+sudo apt update && sudo apt upgrade
+sudo apt update
+sudo apt install git
 ```
 
 ## Docker
@@ -13,6 +14,9 @@ apt install docker-compose
 ## Build
 ```
 git clone https://github.com/ObolNetwork/charon-distributed-validator-node.git
+```
+```
+mkdir .charon && sudo chmod 777 .charon
 ```
 
 ##
