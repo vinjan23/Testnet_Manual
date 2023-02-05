@@ -14,6 +14,7 @@ apt install docker-compose
 ## Build
 ```
 git clone https://github.com/ObolNetwork/charon-distributed-validator-node.git
+cd charon-distributed-validator-node
 ```
 ```
 mkdir .charon && sudo chmod 777 .charon
@@ -21,6 +22,5 @@ mkdir .charon && sudo chmod 777 .charon
 
 ##
 ```
-cd charon-distributed-validator-node
 docker run --rm -v "$(pwd):/opt/charon" obolnetwork/charon:v0.13.0 create enr
 ```
