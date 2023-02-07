@@ -24,5 +24,6 @@ mkdir .charon && sudo chmod 777 .charon
 ```
 docker run --rm -v "$(pwd):/opt/charon" obolnetwork/charon:v0.13.0 create enr
 ```
-`output like this >>``Created ENR private key: .charon/charon-enr-private-key
+`output like this`
+`Created ENR private key: .charon/charon-enr-private-key
 enr:-JG4QGQpV4qYe32QFUAbY1UyGNtNcrVMip83cvJRhw1brMslPeyELIz3q6dsZ7GblVaCjL_8FKQhF6Syg-O_kIWztimGAYHY5EvPgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQKzMe_GFPpSqtnYl-mJr8uZAUtmkqccsAx7ojGmFy-FY4N0Y3CCDhqDdWRwgg4u`
