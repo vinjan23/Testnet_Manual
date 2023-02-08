@@ -32,3 +32,42 @@ enr:-JG4QGQpV4qYe32QFUAbY1UyGNtNcrVMip83cvJRhw1brMslPeyELIz3q6dsZ7GblVaCjL_8FKQh
 ```
 docker-compose up
 ```
+## Logs All
+```
+cd charon-distributed-validator-node
+docker compose logs -f
+```
+
+## Logs charon
+```
+cd charon-distributed-validator-node
+docker compose logs -f charon
+```
+
+## Logs Geth
+```
+cd charon-distributed-validator-node
+docker compose logs -f geth
+```
+## Logs Grafana
+```
+cd charon-distributed-validator-node
+docker compose logs -f grafana
+```
+
+## Logs Lighthouse
+```
+cd charon-distributed-validator-node
+docker compose logs -f lighthouse
+```
+## Logs Teku
+```
+cd charon-distributed-validator-node
+docker compose logs -f teku
+```
+
+## Logs prometheus
+```
+cd charon-distributed-validator-node
+docker compose logs -f prometheus
+```
