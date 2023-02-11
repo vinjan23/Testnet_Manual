@@ -15,7 +15,7 @@ apt install docker-compose
 wget https://testnet-1-files.elixir.finance/Dockerfile
 ```
 
-### Set config
+### Set config `Address Metamask & PK`
 ```
 nano Dockerfile
 ```
