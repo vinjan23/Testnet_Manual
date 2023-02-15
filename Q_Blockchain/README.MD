@@ -151,6 +151,7 @@ Change this 3 Value
 `Download Folder testnet-validator`
 
 # Install Docker
+ ```
 sudo apt update
 sudo apt upgrade
 apt install docker-compose
