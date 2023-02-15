@@ -139,28 +139,61 @@ sudo docker-compose down -v
 rm -rf testnet-public-tools
 ```
 
-# Run OmniBride (OPTIONAL) For learning purposes
+# Move to New VPS
 
-### Configure Omnibride Oracle
+### Stop Old VPS
 ```
-cd $HOME
-cd testnet-public-tools/omnibridge-oracle
-cp .env.testnet .env
-nano .env
+cd testnet-public-tools/testnet-validator/
+docker-compose down -v
 ```
 
 Change this 3 Value 
+`Download Folder testnet-validator`
 
-<img height="450" height="auto" src="https://user-images.githubusercontent.com/34649601/206751937-40a418fc-c60d-4d3c-bebc-c7814b065b86.png">
+# Install Docker
+sudo apt update
+sudo apt upgrade
+apt install docker-compose
+sudo apt-get update && sudo apt install jq && sudo apt install apt-transport-https ca-certificates curl software-properties-common -y && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin && sudo apt-get install docker-compose-plugin
+```
+# Install Node
+```
+git clone https://gitlab.com/q-dev/testnet-public-tools
+cd testnet-public-tools
+rm -fr testnet-validator
+cd
+```
+# Upload Folder testnet-validator into testnet-public-tools
 
+# Open your .env file and replace the ip address of your new server with the old one
+```
+cd testnet-public-tools/testnet-validator/
+nano .env 
+```
+# Wallet Creation with PK
+```
+apt install npm
+npm install ethereumjs-wallet
+```
+# Create file export-key-as-json.js with the following content; Upload this file to the main directory
+```
+const fs = require("fs")
+const wallet = require("ethereumjs-wallet").default
 
-`ORACLE_VALIDATOR_ADDRESS` :	`Provide your Q validator address. Example: 0xac8e5047d122f801...`
+const pk = new Buffer.from(process.argv[2], 'hex') // replace by correct private key
+const account = wallet.fromPrivateKey(pk)
+const password = process.argv[3] // will be required to unlock/sign after importing to a wallet like MyEtherWallet
 
-`ORACLE_VALIDATOR_ADDRESS_PRIVATE_KEY` :	`Provide your Q validator private key. Example: a385db8296ceb9a....`
+account.toV3(password)
+    .then(value => {
+        const address = account.getAddress().toString('hex')
+        const file = `UTC--${new Date().toISOString().replace(/[:]/g, '-')}--${address}.json`
+        fs.writeFileSync(file, JSON.stringify(value))
+    });
+```
+# `Run node export-key-as-json.js <your-private-key> <some-random-password>`
 
-`COMMON_HOME_RPC_URL` :	`You can keep the default, use https://rpc.qtestnet.org or use the RPC endpoint of our own full node if you are operating one.`
-
-`COMMON_FOREIGN_RPC_URL` :	`Provide an RPC endpoint of a client of the blockchain on the other side of the bridge. Q testnet bridged to the Ethereum Rinkeby network. You can use your own ethereum client, a public endpoint or create an infura account for free to get a personal Ethereum Rinkeby access point (e.g. https://rinkeby.infura.io/v3/1673abc....).`
+# You can now upload this file you created into the keystore folder
 
 ### Run your docker-compose
 ```
