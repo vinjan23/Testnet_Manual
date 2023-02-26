@@ -1,6 +1,7 @@
 
 
 ```
+apt-get update
 sudo apt install build-essential
 sudo apt install --assume-yes git clang curl libssl-dev protobuf-compiler
 sudo apt install --assume-yes git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
