@@ -4,7 +4,7 @@
 sudo apt install build-essential
 ```
 ```
-sudo apt-get install screen -y
+apt-get install screen git
 ```
 ```
 sudo apt install --assume-yes git clang curl libssl-dev protobuf-compiler
@@ -43,6 +43,10 @@ ufw enable
 ```
 git clone https://github.com/GlobalBoost/impactprotocol
 ```
+```
+screen -Rd impactprotocol
+```
+
 ```
 cd impactprotocol
 ```
