@@ -67,7 +67,7 @@ cargo build --release
 --rpc-port 9933 \
 --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
 --validator \
---author "public key here" \
+--author "0xc25c46207a898270d8638585309c6e8e685b0da2147e346e9c0f64151eba6723" \
 --rpc-methods Unsafe \
 --name yournodename \
 --password-interactive
