@@ -157,7 +157,7 @@ namada client bonded-stake
 ```
 
   
-
+atest1v4ehgw36xyurgdfjgcurgdzrggc52s3sxaprwv6rgge5x3fnxc65xd2yx4rygd2rx3q5xvp3xc66pw
 
 
 
