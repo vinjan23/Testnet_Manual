@@ -2,68 +2,71 @@
 
 ### Update Tool
 ```
-cd $HOME
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl tar wget clang pkg-config libssl-dev libclang-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
-sudo apt install -y uidmap dbus-user-session
+sudo apt install curl git wget htop tmux build-essential jq make lz4 gcc pkg-config libssl-dev libclang-dev -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
 ```
 
-### Setup RUST
+### Replace Validator Name & Wallet Name
 ```
-cd $HOME
-  sudo apt update
-  sudo curl https://sh.rustup.rs -sSf | sh -s -- -y
-  . $HOME/.cargo/env
-  curl https://deb.nodesource.com/setup_16.x | sudo bash
-  sudo apt install cargo nodejs -y < "/dev/null"
-  ```
+echo "export ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR"" >> $HOME/.bash_profile
+echo "export WALLET="CHOOSE_A_WALLET_NAME"" >> $HOME/.bash_profile
+echo "export PUBLIC_IP=$(wget -qO- eth0.me)" >> $HOME/.bash_profile
+echo "export TM_HASH="v0.1.4-abciplus"" >> $HOME/.bash_profile
+echo "export CHAIN_ID="public-testnet-7.0.3c5a38dc983"" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+```
 
 ### Install GO
 
 ```
-  ver="1.19.4"
-  cd $HOME
-  wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
-  rm "go$ver.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
-  source ~/.bash_profile
+cd $HOME
+if ! [ -x "$(command -v go)" ]; then
+wget -O go1.19.4.linux-amd64.tar.gz https://golang.org/dl/go1.19.4.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.19.4.linux-amd64.tar.gz && sudo rm go1.19.4.linux-amd64.tar.gz
+echo 'export GOROOT=/usr/local/go' >> $HOME/.bash_profile
+echo 'export GOPATH=$HOME/go' >> $HOME/.bash_profile
+echo 'export GO111MODULE=on' >> $HOME/.bash_profile
+echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.bash_profile && . $HOME/.bash_profile
+go version
+fi 
 ```
 
-### Setup Var
+### Namada Binary
 
 ```
-echo "export VALIDATOR_ALIAS=change_your_validator_name" >> ~/.bash_profile
-echo "export WALLET=change_your_wallet_name" >> ~/.bash_profile
-echo "export NAMADA_TAG=v0.12.1" >> ~/.bash_profile
-echo "export TM_HASH=v0.1.4-abciplus" >> ~/.bash_profile
-echo "export CHAIN_ID=public-testnet-1.0.05ab4adb9db" >> ~/.bash_profile
-source ~/.bash_profile
-```
-
-### Build Binary
-
-```
-cd $HOME && git clone https://github.com/anoma/namada && cd namada && git checkout $NAMADA_TAG
+cd $HOME
+rm -rf namada
+git clone https://github.com/anoma/namada
+cd namada
+git checkout v0.15.1
 make build-release
-cargo --version
+sudo cp -r $HOME/namada/target/release/namada* /usr/local/bin/
+```
+```
+namada --version
 ```
 
 ### Build Tendermint
 
 ```
-cd $HOME && git clone https://github.com/heliaxdev/tendermint && cd tendermint && git checkout $TM_HASH
+cd $HOME
+git clone https://github.com/heliaxdev/tendermint
+cd tendermint
+git checkout $TM_HASH
 make build
-cd $HOME && cp $HOME/tendermint/build/tendermint  /usr/local/bin/tendermint && cp "$HOME/namada/target/release/namada" /usr/local/bin/namada && cp "$HOME/namada/target/release/namadac" /usr/local/bin/namadac && cp "$HOME/namada/target/release/namadan" /usr/local/bin/namadan && cp "$HOME/namada/target/release/namadaw" /usr/local/bin/namadaw
+sudo cp $HOME/tendermint/build/tendermint  /usr/local/bin/
+```
+```
 tendermint version
+#0.1.4-abciplus
 ```
 
-### Setup Full Node
+### Run Node
 ```
-cd $HOME && namada client utils join-network --chain-id $CHAIN_ID
-cd $HOME && wget https://github.com/heliaxdev/anoma-network-config/releases/download/public-testnet-1.0.05ab4adb9db/public-testnet-1.0.05ab4adb9db.tar.gz
-tar xvzf "$HOME/public-testnet-1.0.05ab4adb9db.tar.gz"
+cd $HOME
+namada client utils join-network --chain-id $CHAIN_ID --genesis-validator $ALIAS
 ```
 
 ### Create Service File
@@ -75,13 +78,12 @@ Description=namada
 After=network-online.target
 
 [Service]
-User=root
-WorkingDirectory=$HOME/.namada
+User=$USER
+WorkingDirectory=$HOME
 Environment=NAMADA_LOG=debug
 Environment=NAMADA_TM_STDOUT=true
-ExecStart=/usr/local/bin/namada --base-dir=$HOME/.namada node ledger run 
-StandardOutput=syslog
-StandardError=syslog
+Environment="PATH=/bin:/usr/bin:/usr/local/bin"
+ExecStart=/usr/local/bin/namada --base-dir=$HOME/.namada node ledger run
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=65535
@@ -99,24 +101,63 @@ sudo systemctl enable namadad
 sudo systemctl restart namadad && sudo journalctl -u namadad -f -o cat
 ```
 
+### Set Connection
+```
+sudo ufw default allow outgoing 
+sudo ufw default deny incoming 
+sudo ufw allow ssh/tcp 
+sudo ufw allow 26656,26657/tcp
+sudo ufw enable
+```
+
 ### Create Wallet
 
 ```
-cd $HOME
 namada wallet address gen --alias $WALLET
+```
+```
 namadac transfer \
     --token NAM \
     --amount 1000 \
     --source faucet \
-    --target $WALLET \
-    --signer $WALLET
+    --target $ALIAS \
+    --signer $ALIAS
+```
+    
+### Sync
+```
+curl http://127.0.0.1:26657/status | jq .result.sync_info.catching_up
 ```
 
-### Create Client
+### Check Balances
+```
+namada client balance --owner $ALIAS --token NAM
+```
 
+### Init Validator
 ```
-namada client init-validator --alias $VALIDATOR_ALIAS --source $WALLET --commission-rate 0.05 --max-commission-rate-change 0.01 --gas-limit 10000000
+namada client init-validator \
+  --alias $ALIAS \
+  --source $WALLET \
+  --commission-rate 0.05 \
+  --max-commission-rate-change 0.01
 ```
+
+### Stake Funds
+```
+namada client bond \
+  --validator $ALIAS \
+  --amount 1500 \
+  --gas-limit 10000000
+```
+
+### Check Status
+```
+namada client bonded-stake
+```
+
+  
+
 
 
 
