@@ -128,6 +128,14 @@ namada client transfer \
 ```
 curl http://127.0.0.1:26657/status | jq .result.sync_info.catching_up
 ```
+### Check Address
+```
+curl -s localhost:26657/status | jq .result.validator_info.address
+```
+### Check Voting Power
+```
+curl -s localhost:26657/status | jq .result.validator_info.voting_power
+```
 
 ### Check Balances
 ```
