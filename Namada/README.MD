@@ -116,12 +116,12 @@ sudo ufw enable
 namada wallet address gen --alias $WALLET
 ```
 ```
-namadac transfer \
-    --token NAM \
-    --amount 1000 \
-    --source faucet \
-    --target $ALIAS \
-    --signer $ALIAS
+namada client transfer \
+  --source faucet \
+  --target $WALLET \
+  --token NAM \
+  --amount 1000 \
+  --signer $WALLET
 ```
     
 ### Sync
@@ -136,27 +136,63 @@ namada client balance --owner $ALIAS --token NAM
 
 ### Init Validator
 ```
+cd $HOME
 namada client init-validator \
-  --alias $ALIAS \
-  --source $WALLET \
-  --commission-rate 0.05 \
-  --max-commission-rate-change 0.01
+--alias $VALIDATOR_ALIAS \
+--source $WALLET \
+--commission-rate 0.05 \
+--max-commission-rate-change 0.01 \
+--signer $WALLET \
+--gas-amount 100000000 \
+--gas-token NAM \
+--scheme ed25519 \
+--unsafe-dont-encrypt
+```
+```
+cd $HOME
+namada client transfer \
+    --token NAM \
+    --amount 1000 \
+    --source faucet \
+    --target $VALIDATOR_ALIAS \
+    --signer $VALIDATOR_ALIAS
+```
+```
+namada client transfer \
+    --token NAM \
+    --amount 1000 \
+    --source faucet \
+    --target $VALIDATOR_ALIAS \
+    --signer $VALIDATOR_ALIAS
 ```
 
 ### Stake Funds
 ```
 namada client bond \
-  --validator $ALIAS \
-  --amount 1500 \
-  --gas-limit 10000000
+--validator $VALIDATOR_ALIAS \
+--amount 1777 \
+--signer $VALIDATOR_ALIAS \
+--source $VALIDATOR_ALIAS
 ```
 
 ### Check Status
 ```
-namada client bonded-stake
+namada client bonded-stake --validator $VALIDATOR_ALIAS
+```
+```
+namada client bonds --validator $VALIDATOR_ALIAS
 ```
 
-  
+### Delete Node
+```
+systemctl stop namadad && systemctl disable namadad
+rm /etc/systemd/system/namadad* -rf
+rm $(which namadad) -rf
+rm $HOME/.namada* -rf
+rm $HOME/namada -rf
+rm $HOME/tendermint -rf
+```
+
 atest1v4ehgw36xyurgdfjgcurgdzrggc52s3sxaprwv6rgge5x3fnxc65xd2yx4rygd2rx3q5xvp3xc66pw
 
 
