@@ -156,6 +156,7 @@ namada client init-validator \
 --scheme ed25519 \
 --unsafe-dont-encrypt
 ```
+### Faucet
 ```
 cd $HOME
 namada client transfer \
