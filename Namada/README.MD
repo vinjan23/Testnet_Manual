@@ -169,7 +169,7 @@ namada client transfer \
 ```
 namada client transfer \
     --token NAM \
-    --amount 1000 \
+    --amount 2000 \
     --source faucet \
     --target $VALIDATOR_ALIAS \
     --signer $VALIDATOR_ALIAS
