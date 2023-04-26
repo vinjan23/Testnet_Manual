@@ -179,7 +179,7 @@ namada client transfer \
 ```
 namada client bond \
 --validator $VALIDATOR_ALIAS \
---amount 1777 \
+--amount 2000 \
 --signer $VALIDATOR_ALIAS \
 --source $VALIDATOR_ALIAS
 ```
