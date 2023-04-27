@@ -101,17 +101,7 @@ sudo systemctl enable namadad
 sudo systemctl restart namadad && sudo journalctl -u namadad -f -o cat
 ```
 
-### Set Connection
-```
-sudo ufw default allow outgoing 
-sudo ufw default deny incoming 
-sudo ufw allow ssh/tcp 
-sudo ufw allow 26656,26657/tcp
-sudo ufw enable
-```
-
 ### Create Wallet
-
 ```
 namada wallet address gen --alias $WALLET
 ```
@@ -142,20 +132,6 @@ curl -s localhost:26657/status | jq .result.validator_info.voting_power
 namada client balance --owner $ALIAS --token NAM
 ```
 
-### Init Validator
-```
-cd $HOME
-namada client init-validator \
---alias $VALIDATOR_ALIAS \
---source $WALLET \
---commission-rate 0.05 \
---max-commission-rate-change 0.01 \
---signer $WALLET \
---gas-amount 100000000 \
---gas-token NAM \
---scheme ed25519 \
---unsafe-dont-encrypt
-```
 ### Faucet
 ```
 cd $HOME
@@ -173,6 +149,21 @@ namada client transfer \
     --source faucet \
     --target $VALIDATOR_ALIAS \
     --signer $VALIDATOR_ALIAS
+```
+
+### Init Validator
+```
+cd $HOME
+namada client init-validator \
+--alias $VALIDATOR_ALIAS \
+--source $WALLET \
+--commission-rate 0.05 \
+--max-commission-rate-change 0.01 \
+--signer $WALLET \
+--gas-amount 100000000 \
+--gas-token NAM \
+--scheme ed25519 \
+--unsafe-dont-encrypt
 ```
 
 ### Stake Funds
