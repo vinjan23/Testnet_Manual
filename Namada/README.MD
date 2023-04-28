@@ -63,10 +63,14 @@ tendermint version
 #0.1.4-abciplus
 ```
 
-### Run Node
+### Run Node Pre-Genesis
 ```
 cd $HOME
 namada client utils join-network --chain-id $CHAIN_ID --genesis-validator $ALIAS
+```
+### Post-Genesis
+```
+namada client utils join-network --chain-id $CHAIN_ID
 ```
 
 ### Create Service File
