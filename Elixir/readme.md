@@ -16,7 +16,7 @@ mkdir elixir && cd elixir
 
 ### Binary
 ```
-wget https://testnet-2-files.elixir.finance/Dockerfile
+wget https://files.elixir.finance/Dockerfile
 ```
 
 ### Set config `Address Metamask & PK`
