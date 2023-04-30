@@ -16,7 +16,7 @@ mkdir elixir && cd elixir
 
 ### Binary
 ```
-wget https://testnet-1-files.elixir.finance/Dockerfile
+wget https://testnet-2-files.elixir.finance/Dockerfile
 ```
 
 ### Set config `Address Metamask & PK`
@@ -42,7 +42,7 @@ docker logs -f ev
 ```
 docker kill ev
 docker rm ev
-docker pull elixirprotocol/validator:testnet-1
+docker pull elixirprotocol/validator:testnet-2
 docker build . -t elixir-validator
 docker run --restart unless-stopped -d --name ev elixir-validator
 ```
