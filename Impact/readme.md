@@ -59,7 +59,7 @@ cargo build --release
 ```
 
 ```
-./target/release/impact import-mining-key "hawk avocado world check unusual unusual order velvet omit omit blush abuse" --base-path /tmp/impactnode --chain=impact-testnet
+./target/release/impact import-mining-key "phrase" --base-path /tmp/impactnode --chain=impact-testnet
 ```
 
 ```
