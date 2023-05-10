@@ -61,6 +61,15 @@ cargo build --release
 ```
 ./target/release/impact import-mining-key "phrase" --base-path /tmp/impactnode --chain=impact-testnet
 ```
+```
+./target/release/impact key insert \
+  --base-path ~/.impactnode01 \
+  --chain=impact-testnet \
+  --scheme Ed25519 \
+  --suri "CHANGE_THIS_WITH_YOUR_SEED_PHRASE//vj-1///impact" \
+  --password-interactive \
+  --key-type gran
+```
 
 ```
 ./target/release/impact \
