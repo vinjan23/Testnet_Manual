@@ -44,7 +44,7 @@ ufw enable
 git clone https://github.com/GlobalBoost/impactprotocol
 ```
 ```
-screen -Rd impactprotocol
+screen -S impact
 ```
 
 ```
