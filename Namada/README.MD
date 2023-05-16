@@ -27,6 +27,14 @@ sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
 sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
 rm -f $PROTOC_ZIP
 ```
+```
+apt -y remove protobuf-compiler
+cd; mkdir protoc; cd protoc
+wget https://github.com/protocolbuffers/protobuf/releases/download/v23.0/protoc-23.0-linux-x86_64.zip
+unzip protoc-23.0-linux-x86_64.zip
+cp bin/protoc /usr/local/bin/
+cp -r include/google <~/namada/proto/
+```
 
 ### Replace Validator Name & Wallet Name
 ```
@@ -58,6 +66,13 @@ sudo cp -r $HOME/namada/target/release/namada* /usr/local/bin/
 ```
 ```
 namada --version
+```
+### Update
+```
+cd $HOME/namada
+git pull
+git checkout $NAMADA_TAG
+make build dev-deps
 ```
 
 ### Build Tendermint
