@@ -3,23 +3,9 @@
 ### Update Tool
 ```
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl git wget htop tmux build-essential jq make lz4 gcc pkg-config libssl-dev libclang-dev -y
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source "$HOME/.cargo/env"
+sudo apt install libclang-12-dev
 ```
-
-### Replace Validator Name & Wallet Name
-```
-echo "export ALIAS="CHOOSE_A_NAME_FOR_YOUR_VALIDATOR"" >> $HOME/.bash_profile
-echo "export WALLET="CHOOSE_A_WALLET_NAME"" >> $HOME/.bash_profile
-echo "export PUBLIC_IP=$(wget -qO- eth0.me)" >> $HOME/.bash_profile
-echo "export TM_HASH="v0.1.4-abciplus"" >> $HOME/.bash_profile
-echo "export CHAIN_ID="public-testnet-7.0.3c5a38dc983"" >> $HOME/.bash_profile
-source $HOME/.bash_profile
-```
-
 ### Install GO
-
 ```
 cd $HOME
 if ! [ -x "$(command -v go)" ]; then
@@ -31,6 +17,32 @@ echo 'export GO111MODULE=on' >> $HOME/.bash_profile
 echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.bash_profile && . $HOME/.bash_profile
 go version
 fi 
+```
+### Install Rust
+```
+cd $HOME && rustup update
+PROTOC_ZIP=protoc-3.14.0-linux-x86_64.zip
+curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/$PROTOC_ZIP
+sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
+sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
+rm -f $PROTOC_ZIP
+```
+
+### Replace Validator Name & Wallet Name
+```
+echo "export VALIDATOR_ALIAS=YOUR_MONIKER" >> ~/.bash_profile
+echo "export NAMADA_TAG=v0.15.3" >> ~/.bash_profile
+echo "export TM_HASH=v0.1.4-abciplus" >> ~/.bash_profile
+echo "export CHAIN_ID=public-testnet-8.0.b92ef72b820" >> ~/.bash_profile
+echo "export WALLET=wallet" >> ~/.bash_profile
+echo "export BASE_DIR=$HOME/.local/share/namada" >> ~/.bash_profile
+source ~/.bash_profile
+```
+### Make Dir
+```
+mkdir $HOME/.local/
+mkdir $HOME/.local/share/
+mkdir $HOME/.local/share/namada
 ```
 
 ### Namada Binary
