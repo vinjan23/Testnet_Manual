@@ -55,4 +55,19 @@ opside-chain/show-validator-log.sh
 ### Go to [Validator Launchpad](https://opside.network/validator/deposit)
 Follow the steps to enter the Upload deposit data page, then upload the deposit data file you just generated.The deposit_data-[timestamp].json is located in directory testnet-auto-install/validator_keys/.
 
-
+### Restart
+```
+cd ./testnet-auto-install-v2
+```
+```
+stop-all.sh
+```
+```
+opside-chain/start-geth.sh
+```
+```
+opside-chain/start-beaconChain.sh
+```
+```
+opside-chain/start-validator.sh
+```
