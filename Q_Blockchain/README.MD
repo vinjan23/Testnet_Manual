@@ -176,6 +176,10 @@ nano .env
 apt install npm
 npm install ethereumjs-wallet
 ```
+```
+nano export-key-as-json.js
+```
+
 # Create file export-key-as-json.js with the following content; Upload this file to the main directory
 ```
 const fs = require("fs")
@@ -192,8 +196,10 @@ account.toV3(password)
         fs.writeFileSync(file, JSON.stringify(value))
     });
 ```
-# `Run node export-key-as-json.js <your-private-key> <some-random-password>`
-
+### Generate UTC file
+```
+node export-key-as-json.js <your-private-key> <some-random-password>
+```
 # You can now upload this file you created into the keystore folder
 
 ### Run your docker-compose
