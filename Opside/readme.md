@@ -36,16 +36,24 @@ Follow the CLI prompts to:
 
 
 ### Check the logs
-
-opside-chain/show-geth-log.sh
+```
+cd ./testnet-auto-install-v2/testnet-auto-install-v3
+```
 ```
 opside-chain/show-geth-log.sh
+```
+```
+opside-chain/show-geth-log.sh
+```
 ```
 show the consensus client logs
 ```
+```
 opside-chain/show-beaconChain-log.sh
 ```
+```
 show the validator logs
+```
 ```
 opside-chain/show-validator-log.sh
 ```
@@ -57,8 +65,9 @@ Follow the steps to enter the Upload deposit data page, then upload the deposit 
 
 ### Restart
 ```
-cd ./testnet-auto-install-v2
+cd ./testnet-auto-install-v2/testnet-auto-install-v3
 ```
+
 ```
 stop-all.sh
 ```
