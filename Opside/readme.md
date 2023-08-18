@@ -42,9 +42,7 @@ cd ./testnet-auto-install-v2/testnet-auto-install-v3
 ```
 opside-chain/show-geth-log.sh
 ```
-```
-opside-chain/show-geth-log.sh
-```
+
 ```
 show the consensus client logs
 ```
