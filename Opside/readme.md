@@ -50,9 +50,6 @@ show the consensus client logs
 opside-chain/show-beaconChain-log.sh
 ```
 ```
-show the validator logs
-```
-```
 opside-chain/show-validator-log.sh
 ```
 
