@@ -37,7 +37,7 @@ Follow the CLI prompts to:
 
 ### Check the logs
 ```
-cd ./testnet-auto-install-v2/testnet-auto-install-v3
+cd ./testnet-auto-install-v3
 ```
 ```
 opside-chain/show-geth-log.sh
