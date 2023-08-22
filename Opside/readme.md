@@ -60,7 +60,7 @@ Follow the steps to enter the Upload deposit data page, then upload the deposit 
 
 ### Restart
 ```
-cd ./testnet-auto-install-v2/testnet-auto-install-v3
+cd ./testnet-auto-install-v3
 ```
 ```
 cd opside-chain
