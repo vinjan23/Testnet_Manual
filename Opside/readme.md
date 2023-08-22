@@ -62,7 +62,10 @@ Follow the steps to enter the Upload deposit data page, then upload the deposit 
 ```
 cd ./testnet-auto-install-v2/testnet-auto-install-v3
 ```
-
+```
+cd opside-chain
+./control-panel.sh
+```
 ```
 stop-all.sh
 ```
