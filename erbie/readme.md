@@ -58,6 +58,11 @@ LimitNOFILE=4096
 [Install]
 WantedBy=multi-user.target
 EOF
+```
+```
+nano .erbie/erbie/nodekey
+```
+```
 sudo systemctl daemon-reload
 sudo systemctl enable erbied
 sudo systemctl start erbied
