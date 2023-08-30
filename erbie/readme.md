@@ -1,10 +1,11 @@
+### Package
 ```
 sudo apt update && sudo apt list --upgradable && sudo apt upgrade -y
 ```
 ```
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential git make ncdu net-tools -y
 ```
-
+### GO
 ```
 ver="1.20.4"
 cd $HOME
@@ -16,6 +17,7 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
 source ~/.bash_profile
 go version
 ```
+### Binary
 ```
 mkdir -p .erbie/erbie
 cd $HOME
@@ -28,6 +30,7 @@ mv erbie /usr/local/bin
 ```
 erbie version
 ```
+### Service
 ```
 sudo tee /etc/systemd/system/erbied.service > /dev/null <<EOF
 [Unit]
@@ -40,7 +43,7 @@ WorkingDirectory=$HOME
 ExecStart= /usr/local/bin/erbie \
   --datadir $HOME/.erbie \
   --devnet \
-  --identity johnt9x \
+  --identity \
   --mine \
   --miner.threads 1 \
   --rpc \
@@ -59,20 +62,28 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 ```
+### Edit PK
 ```
 nano .erbie/erbie/nodekey
 ```
+### Start
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable erbied
 sudo systemctl start erbied
 ```
+### Log
 ```
 journalctl -fu erbied -o cat
 ```
+### Instal Monitor
 ```
 wget -O monitor.sh https://raw.githubusercontent.com/vinjan23/Testnet_Manual/main/erbie/monitor.sh && chmod +x monitor.sh && ./monitor.sh
 ```
+```
+./monitor.sh
+```
+### Delete
 ```
 systemctl stop erbied
 systemctl disable erbied
