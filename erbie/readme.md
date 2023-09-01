@@ -64,7 +64,7 @@ EOF
 ```
 ### Edit PK
 ```
-nano .erbie/erbie/nodekey
+nano $HOME/.erbie/erbie/nodekey
 ```
 ### Start
 ```
