@@ -43,7 +43,7 @@ WorkingDirectory=$HOME
 ExecStart= /usr/local/bin/erbie \
   --datadir $HOME/.erbie \
   --devnet \
-  --identity \
+  --identity vinjan \
   --mine \
   --miner.threads 1 \
   --rpc \
