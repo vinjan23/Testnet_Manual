@@ -65,10 +65,24 @@ service subspaced status
 journalctl -u subspaced -f -o cat
 ```
 # FARMER
+
+### Binary
 ```
 wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-aug-31
 chmod +x subspace-*
 ```
+### Install screen
+```
+sudo apt-get install screen
+```
+```
+screen -S subspace
+```
+### Start ( Change address_reward with ur address)
+```
+./subspace-farmer farm --reward-address <address_reward> path=/root/.local/share/subspace-farmer,size=100G
+```
+### Exit screen use `ctrl A+D / ctrl A+Z`
 
 ### Delete Node
 ```
