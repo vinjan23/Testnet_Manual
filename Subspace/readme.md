@@ -82,7 +82,7 @@ screen -S subspace
 ```
 ./subspace-farmer farm --reward-address <address_reward> path=/root/.local/share/subspace-farmer,size=100G
 ```
-### Exit screen use `ctrl A+D / ctrl A+Z`
+### Exit screen use `ctrl A+D `
 
 ### Delete Node
 ```
