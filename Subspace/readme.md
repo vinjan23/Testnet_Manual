@@ -1,3 +1,4 @@
+# NODE
 ### Package
 ```
 sudo apt update && sudo apt install curl -y
@@ -25,10 +26,6 @@ rm -rf subspace-*
 wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-aug-31
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
-```
-```
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-farmer-ubuntu-x86_64-v2-gemini-3f-2023-aug-31
-chmod +x subspace-*
 ```
 
 ### Service Subspace Node
@@ -67,13 +64,10 @@ service subspaced status
 ```
 journalctl -u subspaced -f -o cat
 ```
-### Cek Farmer status
+# FARMER
 ```
-service subspaced-farmer status
-```
-### Cek Logs
-```
-journalctl -u subspaced-farmer -f -o cat
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-farmer-ubuntu-x86_64-v2-gemini-3f-2023-aug-31
+chmod +x subspace-*
 ```
 
 ### Delete Node
