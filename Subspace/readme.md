@@ -52,9 +52,8 @@ mv $HOME/subspaced.service /etc/systemd/system/
 ```
 sudo systemctl restart systemd-journald
 sudo systemctl daemon-reload
-sudo systemctl enable subspaced subspaced-farmer
+sudo systemctl enable subspaced
 sudo systemctl restart subspaced
-sudo systemctl restart subspaced-farmer
 ```
 ### Cek Node status
 ```
