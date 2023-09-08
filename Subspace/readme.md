@@ -35,6 +35,14 @@ wget -O subspace-node https://github.com/subspace/subspace/releases/download/gem
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
 ```
+### Latest
+```
+cd $HOME
+rm -rf subspace-*
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
+chmod +x subspace-*
+mv subspace-* /usr/local/bin/
+```
 
 ### Service Subspace Node
  ```
@@ -78,6 +86,12 @@ journalctl -u subspaced -f -o cat
 wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-aug-31
 chmod +x subspace-*
 ```
+### Latest
+```
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
+chmod +x subspace-*
+```
+
 ### Install screen
 ```
 sudo apt-get install screen
@@ -91,10 +105,15 @@ screen -S subspace
 ```
 ### Exit screen use `ctrl A+D `
 
+### Reset Farmwer
+```
+./subspace-farmer wipe /root/.local/share/subspace-farmer
+```
+
 ### Delete Node
 ```
-sudo systemctl stop subspaced subspaced-farmer
-sudo systemctl disable subspaced subspaced-farmer
+sudo systemctl stop subspaced
+sudo systemctl disable subspaced
 rm -rf ~/.local/share/subspace*
 rm -rf /etc/systemd/system/subspaced*
 rm -rf /usr/local/bin/subspace*
