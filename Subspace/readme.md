@@ -32,6 +32,7 @@ source $HOME/.bash_profile
 cd $HOME
 rm -rf subspace-*
 wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-aug-31
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-aug-31
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
 ```
@@ -63,13 +64,34 @@ WantedBy=multi-user.target
 EOF
 mv $HOME/subspaced.service /etc/systemd/system/
 ```
+### Service Subspace Farmer
+```
+tee $HOME/subspaced-farmer.service > /dev/null <<EOF
+[Unit]
+Description=Subspaced Farm
+After=network.target
+
+[Service]
+User=$USER
+Type=simple
+ExecStart=/usr/local/bin/subspace-farmer farm --reward-address $WALLET_ADDRESS path=/root/.local/share/subspace-farmer,size=$PLOT_SIZE
+Restart=on-failure
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+EOF
+mv $HOME/subspaced-farmer.service /etc/systemd/system/
+```
 
 ### Start
 ```
 sudo systemctl restart systemd-journald
 sudo systemctl daemon-reload
 sudo systemctl enable subspaced
+sudo systemctl enable subspaced-farmer
 sudo systemctl restart subspaced
+sudo systemctl restart subspaced-farmer
 ```
 ### Cek Node status
 ```
@@ -79,6 +101,15 @@ service subspaced status
 ```
 journalctl -u subspaced -f -o cat
 ```
+### Cek Famer Status
+```
+service subspaced-farmer status
+```
+### Cek Log Farmer
+```
+journalctl -u subspaced-farmer -f -o cat
+```
+
 # FARMER
 
 ### Binary
