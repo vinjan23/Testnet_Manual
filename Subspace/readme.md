@@ -43,6 +43,8 @@ rm -rf subspace-*
 wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
+systemctl restart subspaced
+systemctl restart subspaced-farmer
 ```
 
 ### Service Subspace Node
