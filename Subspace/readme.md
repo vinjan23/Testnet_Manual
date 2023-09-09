@@ -111,6 +111,10 @@ service subspaced-farmer status
 ```
 journalctl -u subspaced-farmer -f -o cat
 ```
+### Wipe
+```
+/usr/local/bin/subspace-farmer wipe /root/.local/share/subspace-farmer
+```
 
 # FARMER
 
