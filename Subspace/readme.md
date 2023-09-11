@@ -17,8 +17,6 @@ sudo apt update && sudo apt install ocl-icd-opencl-dev libopencl-clang-dev libgo
 ### Vars
 ```
 NODENAME=<YOUR_NODENAME>
-WALLET_ADDRESS=<YOUR_WALLET_ADDRESS>
-PLOT_SIZE=100G
 ```
 ### Import
 ```
@@ -66,7 +64,7 @@ WantedBy=multi-user.target
 EOF
 mv $HOME/subspaced.service /etc/systemd/system/
 ```
-### Service Subspace Farmer
+### Service Subspace Farmer `change  <WALLET_ADDRESS> with ur wallet & Plot Size=<ex=100G>`
 ```
 tee $HOME/subspaced-farmer.service > /dev/null <<EOF
 [Unit]
@@ -76,7 +74,7 @@ After=network.target
 [Service]
 User=$USER
 Type=simple
-ExecStart=/usr/local/bin/subspace-farmer farm --reward-address $WALLET_ADDRESS path=/root/.local/share/subspace-farmer,size=$PLOT_SIZE
+ExecStart=/usr/local/bin/subspace-farmer farm --reward-address <WALLET_ADDRESS> path=/root/.local/share/subspace-farmer,size=<PLOT_SIZE>
 Restart=on-failure
 LimitNOFILE=65535
 
