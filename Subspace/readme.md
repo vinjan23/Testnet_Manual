@@ -64,6 +64,13 @@ WantedBy=multi-user.target
 EOF
 mv $HOME/subspaced.service /etc/systemd/system/
 ```
+### Start
+```
+sudo systemctl daemon-reload
+sudo systemctl enable subspaced
+sudo systemctl restart subspaced
+```
+
 ### Service Subspace Farmer `change  <WALLET_ADDRESS> with ur wallet & Plot Size=<ex=100G>`
 ```
 tee $HOME/subspaced-farmer.service > /dev/null <<EOF
@@ -86,11 +93,7 @@ mv $HOME/subspaced-farmer.service /etc/systemd/system/
 
 ### Start
 ```
-sudo systemctl restart systemd-journald
-sudo systemctl daemon-reload
-sudo systemctl enable subspaced
 sudo systemctl enable subspaced-farmer
-sudo systemctl restart subspaced
 sudo systemctl restart subspaced-farmer
 ```
 ### Cek Node status
