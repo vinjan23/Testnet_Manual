@@ -151,7 +151,9 @@ screen -S subspace
 ### Delete Node
 ```
 sudo systemctl stop subspaced
+sudo systemctl stop subspaced-farmer
 sudo systemctl disable subspaced
+sudo systemctl disable subspaced-farmer
 rm -rf ~/.local/share/subspace*
 rm -rf /etc/systemd/system/subspaced*
 rm -rf /usr/local/bin/subspace*
