@@ -114,6 +114,7 @@ mv $HOME/subspaced-farmer.service /etc/systemd/system/
 
 ### Start
 ```
+sudo systemctl daemon-reload
 sudo systemctl enable subspaced-farmer
 sudo systemctl restart subspaced-farmer
 ```
