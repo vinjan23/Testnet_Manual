@@ -25,7 +25,7 @@ echo "export WALLET_ADDRESS=$WALLET_ADDRESS" >> $HOME/.bash_profile
 echo "export PLOT_SIZE=$PLOT_SIZE" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
-### Binary <skylake: for Intel/AMD Ryzen processors and newer>
+### Binary `skylake: for Intel/AMD Ryzen processors and newer`
 ```
 cd $HOME
 rm -rf subspace-*
@@ -34,7 +34,7 @@ wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/g
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
 ```
-### Binary <for older processors since ~2009 and some old VMs>
+### Binary `for older processors since ~2009 and some old VMs`
 ```
 cd $HOME
 rm -rf subspace-*
