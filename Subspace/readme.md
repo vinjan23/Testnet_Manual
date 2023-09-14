@@ -43,7 +43,7 @@ wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/g
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
 ```
-### Latest  <skylake: for Intel/AMD Ryzen processors and newer>
+### Latest  `skylake: for Intel/AMD Ryzen processors and newer`
 ```
 cd $HOME
 rm -rf subspace-*
@@ -54,7 +54,7 @@ mv subspace-* /usr/local/bin/
 systemctl restart subspaced
 systemctl restart subspaced-farmer
 ```
-### Latest <for older processors since ~2009 and some old VMs>
+### Latest `for older processors since ~2009 and some old VMs`
 ```
 cd $HOME
 rm -rf subspace-*
