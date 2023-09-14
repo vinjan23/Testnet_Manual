@@ -25,20 +25,41 @@ echo "export WALLET_ADDRESS=$WALLET_ADDRESS" >> $HOME/.bash_profile
 echo "export PLOT_SIZE=$PLOT_SIZE" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
-### Binary
+### Binary <skylake: for Intel/AMD Ryzen processors and newer>
 ```
 cd $HOME
 rm -rf subspace-*
-wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-aug-31
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-aug-31
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
 ```
-### Latest
+### Binary <for older processors since ~2009 and some old VMs>
 ```
 cd $HOME
 rm -rf subspace-*
-wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-node-ubuntu-x86_64-v2-gemini-3f-2023-sep-05
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-farmer-ubuntu-x86_64-v2-gemini-3f-2023-sep-05
+chmod +x subspace-*
+mv subspace-* /usr/local/bin/
+```
+### Latest <skylake>
+```
+cd $HOME
+rm -rf subspace-*
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-13-2/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-sep-13-2
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-13-2/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-sep-13-2
+chmod +x subspace-*
+mv subspace-* /usr/local/bin/
+systemctl restart subspaced
+systemctl restart subspaced-farmer
+```
+### Latest <older processors>
+```
+cd $HOME
+rm -rf subspace-*
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-13-2/subspace-node-ubuntu-x86_64-v2-gemini-3f-2023-sep-13-2
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-13-2/subspace-farmer-ubuntu-x86_64-v2-gemini-3f-2023-sep-13-2
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
 systemctl restart subspaced
@@ -112,41 +133,25 @@ service subspaced-farmer status
 ```
 journalctl -u subspaced-farmer -f -o cat
 ```
+### Reinstall Farmer
+```
+cd $HOME
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
+chmod +x subspace-*
+mv subspace-* /usr/local/bin/
+```
+### Restart
+```
+sudo systemctl daemon-reload
+sudo systemctl enable subspaced-farmer
+sudo systemctl restart subspaced-farmer
+```
+
 ### Wipe
 ```
 /usr/local/bin/subspace-farmer wipe /root/.local/share/subspace-farmer
 ```
 
-# FARMER
-
-### Binary
-```
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-aug-31/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-aug-31
-chmod +x subspace-*
-```
-### Latest
-```
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
-chmod +x subspace-*
-```
-
-### Install screen
-```
-sudo apt-get install screen
-```
-```
-screen -S subspace
-```
-### Start ( Change address_reward with ur address)
-```
-./subspace-farmer farm --reward-address <address_reward> path=/root/.local/share/subspace-farmer,size=100G
-```
-### Exit screen use `ctrl A+D `
-
-### Reset Farmwer
-```
-./subspace-farmer wipe /root/.local/share/subspace-farmer
-```
 
 ### Delete Node
 ```
