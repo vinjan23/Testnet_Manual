@@ -24,3 +24,19 @@ docker run -it -v $HOME/arthera:/data arthera/arthera-node:latest account new
 ```
 docker run -it -v $HOME/arthera:/data arthera/arthera-node:latest validator new
 ```
+### Stop
+```
+docker ps
+```
+```
+docker stop <>
+```
+```
+docker rm <>
+```
+```
+docker image list
+```
+```
+docker rmi <>
+```
