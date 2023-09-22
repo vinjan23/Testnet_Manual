@@ -29,8 +29,8 @@ source $HOME/.bash_profile
 ```
 cd $HOME
 rm -rf subspace-*
-wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-sep-05
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-21/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-sep-21
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-21/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-sep-21
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
 ```
@@ -38,33 +38,12 @@ mv subspace-* /usr/local/bin/
 ```
 cd $HOME
 rm -rf subspace-*
-wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-node-ubuntu-x86_64-v2-gemini-3f-2023-sep-05
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-05/subspace-farmer-ubuntu-x86_64-v2-gemini-3f-2023-sep-05
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-21/subspace-node-ubuntu-x86_64-v2-gemini-3f-2023-sep-21
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-21/subspace-farmer-ubuntu-x86_64-v2-gemini-3f-2023-sep-21
 chmod +x subspace-*
 mv subspace-* /usr/local/bin/
 ```
-### Latest  `skylake: for Intel/AMD Ryzen processors and newer`
-```
-cd $HOME
-rm -rf subspace-*
-wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-13-2/subspace-node-ubuntu-x86_64-skylake-gemini-3f-2023-sep-13-2
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-13-2/subspace-farmer-ubuntu-x86_64-skylake-gemini-3f-2023-sep-13-2
-chmod +x subspace-*
-mv subspace-* /usr/local/bin/
-systemctl restart subspaced
-systemctl restart subspaced-farmer
-```
-### Latest `for older processors since ~2009 and some old VMs`
-```
-cd $HOME
-rm -rf subspace-*
-wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-13-2/subspace-node-ubuntu-x86_64-v2-gemini-3f-2023-sep-13-2
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-3f-2023-sep-13-2/subspace-farmer-ubuntu-x86_64-v2-gemini-3f-2023-sep-13-2
-chmod +x subspace-*
-mv subspace-* /usr/local/bin/
-systemctl restart subspaced
-systemctl restart subspaced-farmer
-```
+
 
 ### Service Subspace Node
  ```
@@ -164,5 +143,6 @@ rm -rf ~/.local/share/subspace*
 rm -rf /etc/systemd/system/subspaced*
 rm -rf /usr/local/bin/subspace*
 ```
+
 
 
