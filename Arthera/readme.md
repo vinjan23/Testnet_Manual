@@ -24,6 +24,17 @@ docker run -it -v $HOME/arthera:/data arthera/arthera-node:latest account new
 ```
 docker run -it -v $HOME/arthera:/data arthera/arthera-node:latest validator new
 ```
+### Reset
+```
+rm -rf $HOME/arthera/arthera-node $HOME/arthera/chaindata
+```
+```
+rm -rf $HOME/arthera/devnet.g
+```
+```
+curl -o $HOME/arthera/devnet.g http://release.arthera.net/devnet3.g
+```
+
 ### Stop
 ```
 docker ps
