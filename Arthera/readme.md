@@ -51,3 +51,8 @@ docker image list
 ```
 docker rmi <>
 ```
+```
+docker stop arthera
+docker run --rm -it -v $HOME/arthera:/data arthera/arthera-node:latest db heal --experimental
+docker restart arthera
+```
