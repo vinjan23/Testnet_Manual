@@ -67,3 +67,6 @@ export GIT_REPO=release-v6.9.0-genesis-registration
 ```
 make register
 ```
+```
+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
+```
