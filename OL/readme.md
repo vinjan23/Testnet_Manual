@@ -22,18 +22,14 @@ git log -n 1 --pretty
 ```
 sudo apt install make
 ```
-### export SOURCE_PATH=... as needed
 
-### Export the epoch from which legacy is built
-`export EPOCH=692`
-
-### Make .libra folder
+### Make Libra-framework folder
 ```
 mkdir ~/.libra
 ```
 ### Change directory to the genesis tool
 ```
-cd ~/libra-framework/tools/genesis
+cd libra-framework/tools/genesis
 ```
 
 ### Install source and reload bash
@@ -44,25 +40,30 @@ make install
 source ~/.bashrc
 ```
 ### Setup the validator configs and data directory
+
+### Make wallet
+```
+libra wallet keygen
+```
+### Init
 ```
 libra config validator-init
 ```
 
-### Retrieve Validator address and paste it aside
+### Retrieve Validator address
 ```
 grep 'account_address' ~/.libra/public-keys.yaml
 ```
 
-### Paste your GitHub PAT in the
+### Paste your GitHub PAT (Github Token Classis)
 ```
 nano ~/.libra/github_token.txt
 ```
+`Crtl+X+Y Enter`
+
 ```
 export GIT_REPO=release-v6.9.0-genesis-registration
 ```
 ```
 make register
-```
-```
-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
 ```
