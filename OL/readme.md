@@ -34,5 +34,6 @@ nano ~/.libra/github_token.txt"  "export GIT_REPO=release-v6.9.0-genesis-registr
 
 make register"
 
+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
 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
 
