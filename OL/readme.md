@@ -33,3 +33,6 @@ grep 'account_address' ~/.libra/public-keys.yaml
 nano ~/.libra/github_token.txt"  "export GIT_REPO=release-v6.9.0-genesis-registration
 
 make register"
+
+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
+
