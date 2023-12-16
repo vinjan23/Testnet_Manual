@@ -2,77 +2,69 @@
 
 ### Update Tool
 ```
-sudo apt update && sudo apt upgrade -y
-sudo apt install libclang-12-dev
+sudo apt update && sudo apt upgrade -y && \
+sudo apt install curl build-essential git wget jq make gcc tmux htop nvme-cli pkg-config libssl-dev tar clang bsdmainutils ncdu protobuf-compiler unzip libudev-dev libleveldb-dev -y
 ```
 ### Install GO
 ```
-cd $HOME
-if ! [ -x "$(command -v go)" ]; then
-wget -O go1.19.4.linux-amd64.tar.gz https://golang.org/dl/go1.19.4.linux-amd64.tar.gz
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.19.4.linux-amd64.tar.gz && sudo rm go1.19.4.linux-amd64.tar.gz
-echo 'export GOROOT=/usr/local/go' >> $HOME/.bash_profile
-echo 'export GOPATH=$HOME/go' >> $HOME/.bash_profile
-echo 'export GO111MODULE=on' >> $HOME/.bash_profile
-echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.bash_profile && . $HOME/.bash_profile
+cd $HOME && \
+ver="1.20.5" && \
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" && \
+sudo rm -rf /usr/local/go && \
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" && \
+rm "go$ver.linux-amd64.tar.gz" && \
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile && \
+source $HOME/.bash_profile && \
 go version
-fi 
 ```
 ### Install Rust
 ```
-cd $HOME && rustup update
-PROTOC_ZIP=protoc-3.14.0-linux-x86_64.zip
-curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/$PROTOC_ZIP
-sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
-sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
-rm -f $PROTOC_ZIP
+sudo curl https://sh.rustup.rs -sSf | sh -s -- -y
+source "$HOME/.cargo/env"
+cargo --version
 ```
+### Install Protoc
 ```
-apt -y remove protobuf-compiler
-cd; mkdir protoc; cd protoc
-wget https://github.com/protocolbuffers/protobuf/releases/download/v23.0/protoc-23.0-linux-x86_64.zip
-unzip protoc-23.0-linux-x86_64.zip
-cp bin/protoc /usr/local/bin/
-cp -r include/google <~/namada/proto/
+cd $HOME && rustup update  
+PROTOC_ZIP=protoc-23.3-linux-x86_64.zip
+curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v23.3/$PROTOC_ZIP 
+sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc 
+sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*' 
+rm -f $PROTOC_ZIP 
+protoc --version
 ```
-
-### Replace Validator Name & Wallet Name
+### Change 
 ```
 echo "export VALIDATOR_ALIAS=YOUR_MONIKER" >> ~/.bash_profile
-echo "export NAMADA_TAG=v0.15.3" >> ~/.bash_profile
-echo "export TM_HASH=v0.1.4-abciplus" >> ~/.bash_profile
-echo "export CHAIN_ID=public-testnet-8.0.b92ef72b820" >> ~/.bash_profile
-echo "export WALLET=wallet" >> ~/.bash_profile
-echo "export BASE_DIR=$HOME/.local/share/namada" >> ~/.bash_profile
-source ~/.bash_profile
+echo "export EMAIL=your_validator_email" >> ~/.bash_profile
 ```
-### Make Dir
+### Set Vars
 ```
-mkdir $HOME/.local/
-mkdir $HOME/.local/share/
-mkdir $HOME/.local/share/namada
+echo "export NAMADA_TAG=v0.28.0" >> ~/.bash_profile
+echo "export CBFT=v0.37.2" >> ~/.bash_profile
+echo "export NAMADA_CHAIN_ID=public-testnet-15.0dacadb8d663" >> ~/.bash_profile
+echo "export KEY_ALIAS=wallet" >> ~/.bash_profile
+echo "export BASE_DIR=$HOME/.local/share/namada" >> ~/.bash_profil
 ```
 
 ### Namada Binary
-
 ```
-cd $HOME
-rm -rf namada
-git clone https://github.com/anoma/namada
-cd namada
-git checkout v0.15.3
+git clone https://github.com/anoma/namada && cd namada && git fetch && git checkout $NAMADA_TAG 
 make build-release
-sudo cp -r $HOME/namada/target/release/namada* /usr/local/bin/
 ```
 ```
-namada --version
+COMETBFT_TAG="v0.37.2"
+cd $HOME && git clone https://github.com/cometbft/cometbft.git && cd cometbft && git checkout $CBFT
+make build
 ```
-### Update
+### move
 ```
-cd $HOME/namada
-git pull
-git checkout $NAMADA_TAG
-make build dev-deps
+cd $HOME && cp $HOME/cometbft/build/cometbft /usr/local/bin/cometbft && \
+cp "$HOME/namada/target/release/namada" /usr/local/bin/namada && \
+cp "$HOME/namada/target/release/namadac" /usr/local/bin/namadac && \
+cp "$HOME/namada/target/release/namadan" /usr/local/bin/namadan && \
+cp "$HOME/namada/target/release/namadaw" /usr/local/bin/namadaw && \
+cp "$HOME/namada/target/release/namadar" /usr/local/bin/namadar
 ```
 
 ### Build Tendermint
@@ -110,13 +102,14 @@ After=network-online.target
 
 [Service]
 User=$USER
-WorkingDirectory=$HOME
-Environment=NAMADA_LOG=debug
-Environment=NAMADA_TM_STDOUT=true
-Environment="PATH=/bin:/usr/bin:/usr/local/bin"
-ExecStart=/usr/local/bin/namada --base-dir=$HOME/.namada node ledger run
-Restart=on-failure
-RestartSec=3
+WorkingDirectory=$HOME/.local/share/namada
+Environment=TM_LOG_LEVEL=p2p:none,pex:error
+Environment=NAMADA_CMT_STDOUT=true
+ExecStart=/usr/local/bin/namada node ledger run 
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+RestartSec=10
 LimitNOFILE=65535
 
 [Install]
@@ -129,22 +122,38 @@ EOF
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable namadad
+```
+### Post Genesis
+```
+cd $HOME && namada client utils join-network --chain-id $NAMADA_CHAIN_ID
+```
+```
 sudo systemctl restart namadad && sudo journalctl -u namadad -f -o cat
 ```
 
 ### Create Wallet
 ```
-namada wallet address gen --alias $WALLET
+namada wallet key gen --alias $KEY_ALIAS --unsafe-dont-encrypt
+namada wallet address find --alias $KEY_ALIAS
 ```
+
+### Check Balances
 ```
-namada client transfer \
-  --source faucet \
-  --target $WALLET \
-  --token NAM \
-  --amount 1000 \
-  --signer $WALLET
+namada client balance --owner $KEY_ALIAS --token NAM
 ```
-    
+### Validator
+```
+cd $HOME
+namada client init-validator \
+--alias $VALIDATOR_ALIAS \
+--account-keys $KEY_ALIAS \
+--signing-keys $KEY_ALIAS \
+--commission-rate 0.05 \
+--max-commission-rate-change 0.01 \
+--email $EMAIL \
+--unsafe-dont-encrypt
+```
+
 ### Sync
 ```
 curl http://127.0.0.1:26657/status | jq .result.sync_info.catching_up
@@ -182,20 +191,6 @@ namada client transfer \
     --signer $VALIDATOR_ALIAS
 ```
 
-### Init Validator
-```
-cd $HOME
-namada client init-validator \
---alias $VALIDATOR_ALIAS \
---source $WALLET \
---commission-rate 0.05 \
---max-commission-rate-change 0.01 \
---signer $WALLET \
---gas-amount 100000000 \
---gas-token NAM \
---scheme ed25519 \
---unsafe-dont-encrypt
-```
 
 ### Stake Funds
 ```
@@ -224,7 +219,6 @@ rm $HOME/namada -rf
 rm $HOME/tendermint -rf
 ```
 
-atest1v4ehgw36xyurgdfjgcurgdzrggc52s3sxaprwv6rgge5x3fnxc65xd2yx4rygd2rx3q5xvp3xc66pw
 
 
 
