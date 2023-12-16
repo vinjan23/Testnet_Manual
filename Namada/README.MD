@@ -67,31 +67,6 @@ cp "$HOME/namada/target/release/namadaw" /usr/local/bin/namadaw && \
 cp "$HOME/namada/target/release/namadar" /usr/local/bin/namadar
 ```
 
-### Build Tendermint
-
-```
-cd $HOME
-git clone https://github.com/heliaxdev/tendermint
-cd tendermint
-git checkout $TM_HASH
-make build
-sudo cp $HOME/tendermint/build/tendermint  /usr/local/bin/
-```
-```
-tendermint version
-#0.1.4-abciplus
-```
-
-### Run Node Pre-Genesis
-```
-cd $HOME
-namada client utils join-network --chain-id $CHAIN_ID --genesis-validator $ALIAS
-```
-### Post-Genesis
-```
-namada client utils join-network --chain-id $CHAIN_ID
-```
-
 ### Create Service File
 
 ```
