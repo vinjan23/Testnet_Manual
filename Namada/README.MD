@@ -157,21 +157,13 @@ namada client transfer \
     --target $VALIDATOR_ALIAS \
     --signer $VALIDATOR_ALIAS
 ```
-```
-namada client transfer \
-    --token NAM \
-    --amount 1000 \
-    --source faucet \
-    --target $VALIDATOR_ALIAS \
-    --signer $VALIDATOR_ALIAS
-```
 
 
 ### Stake Funds
 ```
 namada client bond \
 --validator $VALIDATOR_ALIAS \
---amount 2000 \
+--amount 1000 \
 --signer $VALIDATOR_ALIAS \
 --source $VALIDATOR_ALIAS
 ```
