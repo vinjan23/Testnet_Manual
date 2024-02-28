@@ -31,7 +31,6 @@ ExecStart=/usr/bin/tangle \
   --base-path $HOME/.tangle/data/validator/$yourname \
   --name '$MONIKER' \
   --chain tangle-testnet \
-  --auto-insert-keys \
   --node-key-file "/home/$yourname/node-key" \
   --port 30333 \
   --rpc-port 9933 \
@@ -39,6 +38,7 @@ ExecStart=/usr/bin/tangle \
   --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
   --validator \
   --no-mdns
+  ----pruning archive
 [Install]
 WantedBy=multi-user.target
 EOF
