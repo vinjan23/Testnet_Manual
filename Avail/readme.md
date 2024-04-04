@@ -13,7 +13,7 @@ cp avail-light-linux-amd64 avail-light
 ```
 ### System
 ```
-sudo tee /etc/systemd/system/avail.service > /dev/null <<EOF
+sudo tee /etc/systemd/system/availd.service > /dev/null <<EOF
 [Unit]
 Description=Avail Light Client
 After=network.target
