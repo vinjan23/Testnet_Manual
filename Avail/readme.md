@@ -11,6 +11,7 @@ wget https://github.com/availproject/avail-light/releases/download/v1.7.10/avail
 tar -xvzf avail-light-linux-amd64.tar.gz
 cp avail-light-linux-amd64 avail-light
 ```
+
 ### System
 ```
 sudo tee /etc/systemd/system/availd.service > /dev/null <<EOF
@@ -33,7 +34,7 @@ EOF
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable availd
-sudo systemctl start availd
+sudo systemctl restart availd
 ```
 ```
 journalctl -u availd -fo cat
