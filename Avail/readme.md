@@ -17,15 +17,14 @@ cp avail-light-linux-amd64 avail-light
 sudo tee /etc/systemd/system/availd.service > /dev/null <<EOF
 [Unit]
 Description=Avail Light Client
-After=network.target
-StartLimitIntervalSec=0
+After=network-online.target
 
 [Service]
 User=$USER
-RestartSec=10
+RestartSec=3
 ExecStart=$HOME/.avail/bin/avail-light --network goldberg --config $HOME/.avail/config/config.yml --app-id 0 --identity $HOME/.avail/identity/identity.toml
 Restart=always
-LimitNOFILE=65000
+LimitNOFILE=65535
 
 [Install]
 WantedBy=multi-user.target
