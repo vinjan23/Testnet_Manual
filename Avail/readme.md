@@ -11,7 +11,12 @@ wget https://github.com/availproject/avail-light/releases/download/v1.7.10/avail
 tar -xvzf avail-light-linux-amd64.tar.gz
 cp avail-light-linux-amd64 avail-light
 ```
-
+```
+sudo su
+```
+```
+curl -sL1 avail.sh | bash
+```
 ### System
 ```
 sudo tee /etc/systemd/system/availd.service > /dev/null <<EOF
