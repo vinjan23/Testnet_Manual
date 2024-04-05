@@ -34,6 +34,8 @@ EOF
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable availd
+```
+```
 sudo systemctl restart availd
 ```
 ```
