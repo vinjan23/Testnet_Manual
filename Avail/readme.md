@@ -45,6 +45,10 @@ sudo systemctl restart availd
 ```
 journalctl -u availd -fo cat
 ```
+### Check Network
+```
+curl -I "localhost:7000/health"
+```
 ### Latest Block
 ```
 curl "http://127.0.0.1:7000/v2/status"
