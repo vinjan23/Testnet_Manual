@@ -47,5 +47,5 @@ journalctl -u availd -fo cat
 ```
 ### Latest Block
 ```
-curl "http://127.0.0.1:7000/v1/latest_block"
+curl "http://127.0.0.1:7000/v2/status"
 ```
