@@ -9,9 +9,10 @@ apt install curl iptables build-essential git wget jq make gcc nano tmux htop nv
 cd $HOME
 mkdir -p $HOME/.tangle
 cd $HOME/.tangle
-wget -O tangle https://github.com/webb-tools/tangle/releases/download/v0.6.1/tangle-testnet-linux-amd64 && chmod +x tangle
+wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.0/tangle-default-linux-amd64 && chmod +x tangle
 mv tangle /usr/bin/
 ```
+
 ```
 tangle --version
 ```
@@ -43,7 +44,32 @@ ExecStart=/usr/bin/tangle \
 WantedBy=multi-user.target
 EOF
 ```
-
+```
+sudo tee /etc/systemd/system/tangle.service > /dev/null << EOF
+[Unit]
+Description=Tangle Full Node
+After=network-online.target
+StartLimitIntervalSec=0
+ 
+[Service]
+User=$USER
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/tangle \
+  --base-path $HOME/.tangle/data/validator/vinjan \
+  --name vinjan \
+  --chain tangle-mainnet \
+  --port 30333 \
+  --rpc-port 9933 \
+  --prometheus-port 9515 \
+  --validator \
+  --no-mdns \
+  --telemetry-url "wss://telemetry.polkadot.io/submit/ 1"
+ 
+[Install]
+WantedBy=multi-user.target
+EOF
+```
 ### Start
 ```
 systemctl daemon-reload
