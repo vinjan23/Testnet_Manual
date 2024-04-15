@@ -72,10 +72,17 @@ EOF
 ```
 ```
  
-./target/release/tangle key insert --base-path /data/validator/vinjan \
+./target/release/tangle key insert --base-path $HOME/.tangle/data/validator/vinjan/chains/tangle-mainnet/keystore \
 --chain tangle-mainnet \
 --scheme Ed25519 \
 --suri <"beach then gift govern begin fork cloud actor finger subject title idea arrow area tonight service employ powder open solid lend surface maid legend"> \
+--key-type gran
+```
+```
+tangle key insert --base-path $HOME/.tangle/data/ \
+--chain $HOME/.tangle/tangle-mainnet.json \
+--scheme Ed25519 \
+--suri "<beach then gift govern begin fork cloud actor finger subject title idea arrow area tonight service employ powder open solid lend surface maid legend>" \
 --key-type gran
 ```
 
