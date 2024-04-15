@@ -70,6 +70,15 @@ ExecStart=/usr/bin/tangle \
 WantedBy=multi-user.target
 EOF
 ```
+```
+ 
+./target/release/tangle key insert --base-path /data/validator/vinjan \
+--chain tangle-mainnet \
+--scheme Ed25519 \
+--suri <"beach then gift govern begin fork cloud actor finger subject title idea arrow area tonight service employ powder open solid lend surface maid legend"> \
+--key-type gran
+```
+
 ### Start
 ```
 systemctl daemon-reload
