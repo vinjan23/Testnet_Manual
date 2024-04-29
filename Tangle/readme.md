@@ -50,26 +50,49 @@ EOF
 systemctl daemon-reload
 systemctl enable tangle
 ```
+### Account Keys
 ```
 tangle key insert \
 --scheme Sr25519 \
---suri "kelimeleri yaz" \
+--suri "mnemonic" \
 --base-path $HOME/.tangle/data/ \
---chain tangle-testnet \
+--chain tangle-mainnet \
 --key-type acco
 ```
+### Babe Keys
 ```
-tangle key insert --base-path $HOME/.tangle/data/ \
---chain $HOME/.tangle/tangle-mainnet.json \
+tangle key insert \
+--base-path $HOME/.tangle/data/ \
+--chain tangle-mainnet \
 --scheme Sr25519 \
---suri "beach then gift govern begin fork cloud actor finger subject title idea arrow area tonight service employ powder open solid lend surface maid legend" \
+--suri "mnemonic" \
 --key-type babe
 ```
+### Im-online Keys
 ```
-tangle key insert --base-path $HOME/.tangle/data/ \
---chain $HOME/.tangle/tangle-mainnet.json \
+tangle key insert \
+--base-path $HOME/.tangle/data/ \
+--chain mainnet \
+--scheme Sr25519 \
+--suri "mnemonic" \
+--key-type imon
+```
+### Role Keys
+```
+tangle key insert \
+--base-path $HOME/.tangle/data/ \
+--chain tangle-mainnet \
+--scheme Ecdsa \
+--suri "mnemonic" \
+--key-type role
+```
+### Grandpa Keys
+```
+tangle key insert \
+--base-path $HOME/.tangle/data/ \
+--chain tangle-mainnet \
 --scheme Ed25519 \
---suri "<beach then gift govern begin fork cloud actor finger subject title idea arrow area tonight service employ powder open solid lend surface maid legend>" \
+--suri "mnemonic" \
 --key-type gran
 ```
 
@@ -82,7 +105,7 @@ journalctl -u tangle -f -o cat
 ```
 
 - Check :
-> [Polkadot Telemetry](https://telemetry.polkadot.io/#list/0xea63e6ac7da8699520af7fb540470d63e48eccb33f7273d2e21a935685bf1320")
+> [Polkadot Telemetry](https://telemetry.polkadot.io/#list/0x44f68476df71ebf765b630bf08dc1e0fedb2bf614a1aa0563b3f74f20e47b3e0")
 
 ### Setup Keys
 ```
