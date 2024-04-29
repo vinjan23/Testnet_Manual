@@ -9,7 +9,7 @@ apt install curl iptables build-essential git wget jq make gcc nano tmux htop nv
 cd $HOME
 mkdir -p $HOME/.tangle
 cd $HOME/.tangle
-wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.0/tangle-testnet-linux-amd64 && chmod +x tangle
+wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.0/tangle-default-linux-amd64 && chmod +x tangle  tangle-default-linux-amd64
 mv tangle /usr/bin/
 ```
 
