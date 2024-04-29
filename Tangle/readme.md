@@ -9,7 +9,7 @@ apt install curl iptables build-essential git wget jq make gcc nano tmux htop nv
 cd $HOME
 mkdir -p $HOME/.tangle
 cd $HOME/.tangle
-wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.0/tangle-default-linux-amd64 && chmod +x tangle
+wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.1-rc1/tangle-testnet-linux-amd64 && chmod +x tangle
 mv tangle /usr/bin/
 ```
 
@@ -19,7 +19,7 @@ tangle --version
 
 ### Create System `<change moniker>`
 ```
-sudo tee /etc/systemd/system/tangle.service > /dev/null << EOF
+tee /etc/systemd/system/tangle.service > /dev/null << EOF
 [Unit]
 Description=Tangle Validator Node
 After=network-online.target
@@ -28,47 +28,35 @@ StartLimitIntervalSec=0
 User=$USER
 Restart=always
 RestartSec=3
+LimitNOFILE=65535
 ExecStart=/usr/bin/tangle \
-  --base-path $HOME/.tangle/data/validator/$yourname \
-  --name '$MONIKER' \
+  --base-path $HOME/.tangle/data/ \
+  --name '$yourname' \
   --chain tangle-testnet \
-  --node-key-file "/home/$yourname/node-key" \
+  --node-key-file "$HOME/.tangle/node-key" \
   --port 30333 \
   --rpc-port 9933 \
-  --prometheus-port 9515 \
-  --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" \
+  --prometheus-port 9615 \
+  --pruning archive \
   --validator \
+  --auto-insert-keys \
+  --telemetry-url "wss://telemetry.polkadot.io/submit 0" \
   --no-mdns
-  ----pruning archive
 [Install]
 WantedBy=multi-user.target
 EOF
 ```
 ```
-sudo tee /etc/systemd/system/tangle.service > /dev/null << EOF
-[Unit]
-Description=Tangle Full Node
-After=network-online.target
-StartLimitIntervalSec=0
- 
-[Service]
-User=$USER
-Restart=always
-RestartSec=3
-ExecStart=/usr/bin/tangle \
-  --base-path $HOME/.tangle/data/validator/vinjan \
-  --name vinjan \
-  --chain tangle-mainnet \
-  --port 30333 \
-  --rpc-port 9933 \
-  --prometheus-port 9515 \
-  --validator \
-  --no-mdns \
-  --telemetry-url "wss://telemetry.polkadot.io/submit/ 1"
- 
-[Install]
-WantedBy=multi-user.target
-EOF
+systemctl daemon-reload
+systemctl enable tangle
+```
+```
+tangle key insert \
+--scheme Sr25519 \
+--suri "kelimeleri yaz" \
+--base-path $HOME/.tangle/data/ \
+--chain tangle-testnet \
+--key-type acco
 ```
 ```
 tangle key insert --base-path $HOME/.tangle/data/ \
