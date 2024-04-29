@@ -9,7 +9,7 @@ apt install curl iptables build-essential git wget jq make gcc nano tmux htop nv
 cd $HOME
 mkdir -p $HOME/.tangle
 cd $HOME/.tangle
-wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.1-rc1/tangle-testnet-linux-amd64 && chmod +x tangle
+wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.0/tangle-testnet-linux-amd64 && chmod +x tangle
 mv tangle /usr/bin/
 ```
 
@@ -32,7 +32,7 @@ LimitNOFILE=65535
 ExecStart=/usr/bin/tangle \
   --base-path $HOME/.tangle/data/ \
   --name '$yourname' \
-  --chain tangle-testnet \
+  --chain tangle-mainnet \
   --node-key-file "$HOME/.tangle/node-key" \
   --port 30333 \
   --rpc-port 9933 \
