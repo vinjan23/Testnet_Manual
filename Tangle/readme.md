@@ -12,7 +12,13 @@ cd $HOME/.tangle
 wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.0/tangle-default-linux-amd64 && chmod +x tangle
 mv tangle /usr/bin/
 ```
-
+### Update
+```
+sudo systemctl stop tangle
+cd $HOME/.tangle
+wget -O tangle https://github.com/webb-tools/tangle/releases/download/v1.0.2/tangle-default-linux-amd64 && chmod +x tangle
+mv tangle /usr/bin/
+```
 ```
 tangle --version
 ```
